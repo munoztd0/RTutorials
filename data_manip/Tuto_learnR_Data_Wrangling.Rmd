@@ -1,5 +1,5 @@
 ---
-title: "Introduction to Data Manipulation with R"
+title: "Data Manipulation with R"
 subtitle: "<br>"
 author: "David Munoz Tord @munozt0"
 output: 
@@ -16,7 +16,7 @@ library(tidyverse)
 library(nycflights13)
 library(Lahman)
 tutorial_options(
-  exercise.cap = "betweenthepipes",
+  exercise.cap = "WeData",
   exercise.timelimit = 120,
   # A simple checker function that just returns the message in the check chunk
   exercise.checker = function(check_code, ...) {

@@ -1,0 +1,29 @@
+https://andysouth.shinyapps.io/intro-to-spatial-r/
+
+https://github.com/scunning1975/mixtape_learnr/tree/main/R
+
+https://github.com/rstudio-education/primers
+
+https://github.com/laderast/tidyowl/tree/master/inst/tutorials
+
+
+
+devtools::install_github("risktoollib/RTLedu")
+learnr::run_tutorial("mutlivariate-regressions",package = "RTLedu")
+
+
+devtools::install_github("tidymodels/learntidymodels")
+learnr::run_tutorial("pca_recipes", package = "learntidymodels")
+
+https://github.com/mattblackwell/qsslearnr
+
+learnr::run_tutorial("hello_world", package = "DoSStoolkit")
+learnr::run_tutorial("operating_in_an_error_prone_world", package = "DoSStoolkit")
+learnr::run_tutorial("holding_the_chaos_at_bay", package = "DoSStoolkit")
+learnr::run_tutorial("hand_me_my_plyrs", package = "DoSStoolkit")
+learnr::run_tutorial("totally_addicted_to_base", package = "DoSStoolkit")
+learnr::run_tutorial("he_was_a_d8er_boi", package = "DoSStoolkit")
+learnr::run_tutorial("to_ggplot_or_not_to_ggplot", package = "DoSStoolkit")
+learnr::run_tutorial("r_marky_markdown", package = "DoSStoolkit")
+learnr::run_tutorial("git_outta_here", package = "DoSStoolkit")
+learnr::run_tutorial("indistinguishable_from_magic", package = "DoSStoolkit")

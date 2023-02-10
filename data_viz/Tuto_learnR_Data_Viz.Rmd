@@ -1,26 +1,24 @@
 ---
-title: "Introduction to Data Visualizatiion with R"
+title: "Data Visualizatiion with R"
 subtitle: "<br>"
 author: "David Munoz Tord @munozt0"
 output: 
    learnr::tutorial:
        theme: "dark" 
 runtime: shiny_prerendered
-description: A beginner-friendly introduction to R and the tidyverse with sample data.
+description: An interactive beginner-friendly introduction to more advanced data visualizatiion with R using GGplot and the tidyverse.
 ---
 
 ```{r setup, include=FALSE}
-library(ggplot2)
-library(ggplot2)
-library(gapminder)
 library(tidyverse)
+library(gapminder)
 library(hrbrthemes) # for general style
 library(plotly)  
 library(ggridges)
 library(viridis)
-library(dygraphs)
-library(xts)  # To make the convertion data-frame / xts format
-library(lubridate) #
+#library(dygraphs)
+#library(xts)  # To make the convertion data-frame / xts format
+#library(lubridate) #
 knitr::opts_chunk$set(echo = FALSE, message=FALSE)
 
 ```
@@ -50,19 +48,23 @@ This practical will teach you the basics of `ggplot2`. It is split in 4 parts, e
 
 *You can type and run your own code in these boxes. I'll often give you some syntax to get started, and if you get stuck, you can hit the solution button. Don't add any code to the code editor here, just press the Run Code button.*
 
-```{r load, exercise = TRUE, exercise.eval = FALSE}
+```{r load, exercise = TRUE, exercise.eval = FALSE, echo = TRUE}
 # This is an example of a comment! Lines that start with # aren't run as code.
 # You don't have to type anything else here, we just load libraries (or also called packages) that we will need
-library(ggplot2)
 library(gapminder)
 library(tidyverse)
 ```
 
-`ggplot2` is a very powerful package for data visualization with R. It is the main topic of this practical.
-
 `gapminder` is a package containing data on life expectancy, GDP per capita, and population by country.
 
-`tidyverse` is a package for all around data manipulation.
+`tidyverse` is wrapper to load the core packages that you are likely to use in everyday data analyses:
+- `ggplot2` which is a very powerful package for data visualization with R. It is the main topic of this practical. 
+- `dplyr` a package for all around data manipulation. 
+- `tidyr` functions that help you get to tidy data (in brief, every variable goes in a column, and every column is a variable). 
+- others such as  `readr`, `tibble`, `stringr`, `purr` and `forcats` that I'm not going to explain here further but on more specific courses.
+<!-- - `readr`  provides a friendly way to read rectangular data (like csv)and it very powerful to parse many types of data found in the wild.
+- `purrr` is the cutest package, once you master the basic concepts, `purrr` allows you to replace many for loops with code that is easier to write and more expressive.
+- `tibble` is a modern re-imagining of the data frame, keeping what time has proven to be effective, and throwing out what it has not. -->
 
 ```{r glimpse, exercise = TRUE, exercise.eval = FALSE}
 # You don't have to type anything else here.
@@ -191,33 +193,49 @@ gapminder |>
 
 *You're in breezing through these questions? Try to do the following:  (1) custom the general appearance using the `theme_ipsum` of the `hrbrthemes` library. (2) add transparency to circles to limit overlapping impact. (3) sort your data by pop size to put the small circle on top of the chart, not hidden by big bubbles. (4) use the `ggplotly()` function of the `plotly` package to make this chart interactive*
 
-<!-- # ```{r interactive, exercise = TRUE, exercise.eval = FALSE, warning=FALSE} -->
-<!-- # #hint: load hrbrthemes and plotly -->
-<!-- # #hint2: use the `alpha` argument inside geom_point() -->
-<!-- # #hint3: use arrange() and desc() to sort data -->
-<!-- # #hint4: use ggplotly to `plotlyfy` your ggplot object -->
-<!-- #  -->
-<!-- # ``` -->
-<!-- #  -->
-<!-- # ```{r interactive-solution, warning=FALSE} -->
-<!-- #  -->
-<!-- # # Additionnal packages: -->
-<!-- # library(hrbrthemes) # for general style -->
-<!-- # library(plotly)     # to make the chart interactive -->
-<!-- #  -->
-<!-- #  -->
-<!-- # # Chart -->
-<!-- # p <- gapminder |> # assign it for later -->
-<!-- #   filter(year=="1952" & country!="Kuwait") |> -->
-<!-- #   arrange(desc(pop)) |> -->
-<!-- #   ggplot( aes(x=gdpPercap, y=lifeExp, fill=continent, size=pop)) + -->
-<!-- #     geom_point(alpha=0.7, stroke="white", shape=21) + -->
-<!-- #     theme_ipsum() -->
-<!-- #  -->
-<!-- # # Interactive more -->
-<!-- # ggplotly(p) -->
-<!-- #  -->
-<!-- # ``` -->
+```{r interactive, exercise = TRUE, exercise.eval = FALSE, warning=FALSE}
+#hint: load hrbrthemes and plotly
+#hint2: use the `alpha` argument inside geom_point()
+#hint3: use arrange() and desc() to sort data
+#hint4: use ggplotly to `plotlyfy` your ggplot object
+#unfortunately you can't actually run this code here (because html inside html)
+```
+
+```{r interactive-solution, warning=FALSE}
+#Additionnal packages:#
+library(hrbrthemes)# for general style
+library(plotly)     #to make the chart interactive
+
+#Chart
+p <- gapminder |> # assign it for later
+  filter(year=="1952" & country!="Kuwait") |>
+  arrange(desc(pop)) |>
+  ggplot( aes(x=gdpPercap, y=lifeExp, fill=continent, size=pop)) +
+    geom_point(alpha=0.7, stroke="white", shape=21) +
+    theme_ipsum()
+
+#Interactive 
+ggplotly(p)
+
+```
+
+```{r, warning=FALSE}
+#Additionnal packages:#
+library(hrbrthemes) # for general style
+library(plotly)     #to make the chart interactive
+
+#Chart
+p <- gapminder |> # assign it for later
+  filter(year=="1952" & country!="Kuwait") |>
+  arrange(desc(pop)) |>
+  ggplot( aes(x=gdpPercap, y=lifeExp, fill=continent, size=pop)) +
+    geom_point(alpha=0.7, stroke="white", shape=21) +
+    theme_ipsum()
+
+#Interactive 
+ggplotly(p)
+
+```
 
 
 ## Distribution
@@ -851,7 +869,7 @@ str(read.table("https://raw.githubusercontent.com/we-data-ch/ggplot_basic/master
 ```
 
 ```{r line-solution, warning=FALSE}
-df %>%
+df |>
   ggplot( aes(x=date, y=value)) +
     geom_line(color="#69b3a2")
 ```
@@ -890,6 +908,27 @@ df |>
 <!-- ``` -->
 
 <!-- ```{r dygraphs-solution, exercise.setup = "datTime", warning=FALSE, exercise = TRUE, exercise.eval = FALSE} -->
+<!-- # Library -->
+<!-- library(dygraphs) -->
+<!-- library(xts)  # To make the convertion data-frame / xts format -->
+<!-- library(lubridate) #to work with date format -->
+
+<!-- # Then you can create the xts format -->
+<!-- don <- xts(x = df$value, order.by = df$date) -->
+
+<!-- # graph -->
+<!-- dygraph(don) |> -->
+<!--   dyOptions(labelsUTC = TRUE, fillGraph=TRUE, fillAlpha=0.1, drawGrid = FALSE, colors="#D8AE5A") |> -->
+<!--   dyRangeSelector() |> -->
+<!--   dyCrosshair(direction = "vertical") |> -->
+<!--   dyHighlight(highlightCircleSize = 5, highlightSeriesBackgroundAlpha = 0.2, hideOnMouseOut = FALSE)  |> -->
+<!--   dyRoller(rollPeriod = 1) -->
+<!-- ``` -->
+
+<!-- ```{r} -->
+
+<!-- df <- read_delim("data/3_TwoNumOrdered.csv", " ") # note here we use read_delim instead of read_csv because for some obscure reason  -->
+
 <!-- # Library -->
 <!-- library(dygraphs) -->
 <!-- library(xts)  # To make the convertion data-frame / xts format -->
